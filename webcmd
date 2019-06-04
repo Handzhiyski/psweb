@@ -1,0 +1,25 @@
+#!/bin/bash
+
+command=$1
+host_address=$2
+port=$3
+is_good_command_line=1
+
+default_host_address="127.0.0.1"
+default_port=5000
+
+if [ -z "$1" ]
+then
+    echo "Error : No command set..."
+    is_good_command_line=0
+    exit
+fi
+
+${host_address:=$default_host_address}
+${port:=$default_port}
+
+echo "ip address: $host_address"
+echo "port: $port"
+
+
+curl -d "$command" -X POST -H "Content-Type: application/text"  http://$host_address:$port/cmd
